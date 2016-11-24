@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/adapter_main_item_photo_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v4.view.ViewPager>
+
+    <ImageView
+        android:id="@+id/adapter_main_item_photo_img"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"/>
+
+    <LinearLayout
+        android:id="@+id/adapter_main_item_photo_root_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/black_40"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:id="@+id/adapter_main_item_photo_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/white_100"
+            android:textSize="14sp"
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/adapter_main_item_photo_author"
+                style="@style/adapter_main_item_photo_time"
+                android:layout_gravity="center_vertical|left"/>
+
+            <RadioGroup
+                android:id="@+id/adapter_main_item_photo_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"></RadioGroup>
+
+            <TextView
+                android:id="@+id/adapter_main_item_photo_time"
+                style="@style/adapter_main_item_photo_time"
+                android:layout_gravity="center_vertical|right"/>
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>

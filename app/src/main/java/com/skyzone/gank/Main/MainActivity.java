@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         mFragments.add(MainFragment.newInstance(TypeFilter.Web));
         mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), mFragments);
         mActivityMainViewPager.setAdapter(mPagerAdapter);
+        mActivityMainViewPager.setOffscreenPageLimit(0);
 
         mActivityMainTab.setupWithViewPager(mActivityMainViewPager);
     }

@@ -6,4 +6,5 @@
     <string name="web">前端</string>
 
     <string name="search">Search</string>
+    <string name="data_failed">获取信息失败</string>
 </resources>

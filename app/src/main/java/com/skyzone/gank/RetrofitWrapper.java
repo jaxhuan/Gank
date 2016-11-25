@@ -27,7 +27,7 @@ public enum RetrofitWrapper {
 
     protected static final int time_out = 10;
 
-    public static final int page_size = 10;
+    public static final int page_size = 50;
 
 
     private RetrofitWrapper() {
@@ -49,7 +49,7 @@ public enum RetrofitWrapper {
     private void initClient() {
 
         //打印网络请求日志
-        HttpLoggingInterceptor mLoggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        HttpLoggingInterceptor mLoggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE);
 
         client = new OkHttpClient.Builder().connectTimeout(time_out, TimeUnit.SECONDS)
                 .writeTimeout(time_out, TimeUnit.SECONDS)

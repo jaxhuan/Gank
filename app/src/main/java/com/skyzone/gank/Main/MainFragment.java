@@ -3,15 +3,12 @@ package com.skyzone.gank.Main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.elvishew.xlog.XLog;
+import com.skyzone.gank.Base.LazyFragment;
 import com.skyzone.gank.Data.Bean.Info;
 import com.skyzone.gank.Data.Result;
 import com.skyzone.gank.Detail.DetailActivity;
@@ -26,14 +23,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by Skyzone on 11/24/2016.
  */
-public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class MainFragment extends LazyFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.fragment_main_recycler_view)
     RecyclerView mFragmentMainRecyclerView;
@@ -59,6 +55,7 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFilter = (TypeFilter) getArguments().getSerializable("type");
         mAdapter = new MainAdapter(getContext(), new ArrayList<Info>(0));
 
         mAdapter.setItemListener(new MainAdapter.InfoItemListener() {
@@ -79,10 +76,31 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onPause() {
+        super.onPause();
 
-        XLog.d("resume:" + mFilter.name());
+        XLog.d("pause:" + mFilter.name());
+
+        mSubscription.unsubscribe();
+    }
+
+    @Override
+    protected int setLayout() {
+        return R.layout.fragment_main;
+    }
+
+    @Override
+    protected void initView() {
+        mFragmentMainRefreshLayout.setColorSchemeResources(new int[]{android.R.color.holo_blue_light, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light});
+        mFragmentMainRefreshLayout.setOnRefreshListener(this);
+        mFragmentMainRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        mFragmentMainRecyclerView.setAdapter(mAdapter);
+        mFragmentMainRecyclerView.addItemDecoration(new DiverRecyclerView(getContext()));
+    }
+
+    @Override
+    protected void loadData() {
+        XLog.d("load data:" + mFilter.name());
 
         mFragmentMainRefreshLayout.post(new Runnable() {
             @Override
@@ -92,30 +110,6 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         });
         mSubscription = new CompositeSubscription();
         onRefresh();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        XLog.d("pause:" + mFilter.name());
-
-        mSubscription.unsubscribe();
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-        ButterKnife.bind(this, view);
-        mFilter = (TypeFilter) getArguments().getSerializable("type");
-        mFragmentMainRefreshLayout.setColorSchemeResources(new int[]{android.R.color.holo_blue_light, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light});
-        mFragmentMainRefreshLayout.setOnRefreshListener(this);
-        mFragmentMainRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        mFragmentMainRecyclerView.setAdapter(mAdapter);
-        mFragmentMainRecyclerView.addItemDecoration(new DiverRecyclerView(getContext()));
-
-        return view;
     }
 
     @Override

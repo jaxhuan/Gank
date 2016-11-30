@@ -4,6 +4,7 @@
     <string name="android">Android</string>
     <string name="ios">iOS</string>
     <string name="web">前端</string>
+    <string name="meizi">妹子</string>
 
     <string name="search">Search</string>
     <string name="data_failed">获取信息失败</string>

@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.skyzone.gank.App;
+import com.skyzone.gank.MeiZi.MeiZiFragment;
 import com.skyzone.gank.R;
 
 import java.util.ArrayList;
@@ -48,9 +49,10 @@ public class MainActivity extends AppCompatActivity {
         mFragments.add(MainFragment.newInstance(TypeFilter.Android));
         mFragments.add(MainFragment.newInstance(TypeFilter.IOS));
         mFragments.add(MainFragment.newInstance(TypeFilter.Web));
+        mFragments.add(MeiZiFragment.newInstance());
         mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), mFragments);
         mActivityMainViewPager.setAdapter(mPagerAdapter);
-        mActivityMainViewPager.setOffscreenPageLimit(0);
+        mActivityMainViewPager.setOffscreenPageLimit(0);  //0==1
 
         mActivityMainTab.setupWithViewPager(mActivityMainViewPager);
     }
@@ -112,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
                     return App.mContext.getString(R.string.ios);
                 case 2:
                     return App.mContext.getString(R.string.web);
+                case 3:
+                    return App.mContext.getString(R.string.meizi);
                 default:
                     return App.mContext.getString(R.string.android);
             }

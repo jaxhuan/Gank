@@ -2,6 +2,7 @@ package com.skyzone.gank.Util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -18,5 +19,13 @@ public class DateUtil {
     public static String parseDate(Date date) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(date);
+    }
+
+    public static boolean isSameDay(Date date0, Date date1) {
+        Calendar calendar0 = Calendar.getInstance();
+        calendar0.setTime(date0);
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTime(date1);
+        return calendar0.compareTo(calendar1) == 0 ? true : false;
     }
 }

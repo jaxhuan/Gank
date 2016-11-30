@@ -81,7 +81,9 @@ public class MainFragment extends LazyFragment implements SwipeRefreshLayout.OnR
 
         XLog.d("pause:" + mFilter.name());
 
-        mSubscription.unsubscribe();
+        if (null != mSubscription) {
+            mSubscription.unsubscribe();
+        }
     }
 
     @Override
